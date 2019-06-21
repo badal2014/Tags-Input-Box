@@ -1,0 +1,101 @@
+<html>
+
+<head>
+
+    <style>
+        .box {
+            border: 1px solid;
+            min-height: 100px;
+            min-width: 400px;
+            width: 400px;
+            padding: 15px;
+        }
+
+        .box li {
+            list-style-type: none;
+            width: auto;
+            display: inline-block;
+            background: #ddd;
+            border-radius: 28px;
+            padding: 3px 15px;
+            margin-right: 5px;
+            margin-top: 5px;
+            cursor: default;
+            user-select: none;
+        }
+
+        .box li button {
+            background: transparent;
+            border: 0;
+            margin-left: 3px;
+            margin-right: 0;
+            padding-right: 0;
+            cursor: pointer;
+        }
+
+        .box ul {
+            display: inline-block;
+            padding: 0;
+            margin: 0;
+        }
+
+        .box input[type=text] {
+            border: 0;
+            outline: none;
+        }
+
+        .box li:last-child::after {
+            content: ''
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="box" onclick=getFocus() id="mainBox">
+        <ul id="ul">
+            <!-- <li id="0">badal</li> -->
+        </ul>
+        <input type="text" id="inputTag" onkeypress="fun(event)">
+    </div>
+</body>
+<script>
+    function getFocus() {
+        document.getElementById("inputTag").focus()
+    }
+    var counter = 0
+    function fun(e) {
+        if (e.keyCode == 13) {
+            var ul = document.getElementById("ul")
+            var length = ul.getElementsByTagName("li")
+            var id = counter++
+            var allLi = ul.getElementsByTagName("li")
+            var value = document.getElementById("inputTag").value
+            if (value != "") {
+                var node = document.createElement("LI");
+                // node.setAttribute("id", id)
+                var textnode = document.createTextNode(value);
+                node.appendChild(textnode);
+                var button = document.createElement("button");
+                button.setAttribute("id", id)
+                button.setAttribute("class", "btnClick")
+                var badal = ul.appendChild(node)
+                badal.append(button)
+                for (let i = 0; i < allLi.length; i++) {
+                    allLi[i].getElementsByTagName("button")[0].innerHTML = "x"
+                    document.getElementById(id).addEventListener("click", clickFunc)
+                }
+                document.getElementById("inputTag").value = ""
+            }
+        }
+    }
+    function clickFunc() {
+        console.log(document.getElementById(this.id));
+
+        document.getElementById(this.id).parentElement.remove()
+
+    }
+</script>
+
+
+</html>
